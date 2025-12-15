@@ -8,7 +8,7 @@ Tài liệu này giúp chuẩn bị môi trường, cài thư viện, kích ho�
 - Quyền truy cập internet để tải thư viện
 
 ### Thiết lập nhanh
-1) (Tùy chọn) Clone repo: `git clone <repo-url>` rồi `cd PhanTichGiaVang`
+1) (Tùy chọn) Clone repo: `git clone https://github.com/ductuongne/PhanTichGiaVang ` rồi `cd PhanTichGiaVang`
 2) Tạo môi trường ảo: `python -m venv .venv`
 3) Kích hoạt venv: `.\.venv\Scripts\Activate.ps1`
 4) Cập nhật `pip`: `python -m pip install --upgrade pip`
