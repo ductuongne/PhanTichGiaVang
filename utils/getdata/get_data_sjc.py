@@ -8,8 +8,8 @@ SJC_REALTIME_URL = "https://sjc.com.vn/GoldPrice/Services/PriceService.ashx"
 
 def get_sjc_realtime():
 
-    response = requests.get(SJC_REALTIME_URL, timeout=15)
-
+    response = requests.get(SJC_REALTIME_URL, timeout=20)
+    response.raise_for_status()
     data = response.json()
 
     # DataFrame từ trường "data"
