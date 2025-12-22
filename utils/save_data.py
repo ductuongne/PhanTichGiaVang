@@ -17,7 +17,7 @@ def save_data_sjc():
     os.makedirs(os.path.dirname(CSV_PATH_REALTIME_SJC), exist_ok=True)
     os.makedirs(os.path.dirname(CSV_PATH_HISTORY_SJC), exist_ok=True)
 
-    df_out = df[["TypeName", "BranchName", "BuyValue", "SellValue", "date"]]
+    df_out = df[["TypeName", "BranchName", "Buy", "Sell", "date"]]
     df_out.to_csv(CSV_PATH_REALTIME_SJC, mode="w", header=True, index=False)
     df_out.to_csv(CSV_PATH_HISTORY_SJC, mode="a", header=False, index=False)
     # Xóa trùng lịch sử theo TypeName + BranchName + date
@@ -29,7 +29,7 @@ def save_data_pnj():
     os.makedirs(os.path.dirname(CSV_PATH_REALTIME_PNJ), exist_ok=True)
     os.makedirs(os.path.dirname(CSV_PATH_HISTORY_PNJ), exist_ok=True)
 
-    df_out = df[["TypeName", "BranchName", "BuyValue", "SellValue", "date"]]
+    df_out = df[["TypeName", "BranchName", "Buy", "Sell", "date"]]
     df_out.to_csv(CSV_PATH_REALTIME_PNJ, mode="w", header=True, index=False)
     df_out.to_csv(CSV_PATH_HISTORY_PNJ, mode="a", header=False, index=False)
     # Xóa trùng lịch sử theo TypeName + BranchName + date
@@ -50,7 +50,7 @@ def deduplicate_history(csv_path: str, subset_cols: list[str]) -> None:
     df.columns = [f"col_{i}" for i in range(n_cols)]
 
     # Map subset_cols sang index tương ứng
-    col_index = {name: idx for idx, name in enumerate(["TypeName", "BranchName", "BuyValue", "SellValue", "date"])}
+    col_index = {name: idx for idx, name in enumerate(["TypeName", "BranchName", "Buy", "Sell", "date"])}
     subset_idx = [col_index[c] for c in subset_cols if c in col_index]
 
     if not subset_idx:

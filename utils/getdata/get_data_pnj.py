@@ -1,5 +1,6 @@
 import requests
 import pandas as pd
+from ._to_float import _to_float
 
 PNJ_URL = "https://edge-api.pnj.io/ecom-frontend/v3/get-gold-price"
 DEFAULT_HEADERS = {
@@ -9,12 +10,6 @@ DEFAULT_HEADERS = {
         "Chrome/123.0.0.0 Safari/537.36"
     )
 }
-
-
-def _to_float(x):
-    if x is None:
-        return None
-    return float(str(x).replace(".", "").replace(",", ""))
 
 
 def get_pnj_realtime():
@@ -52,13 +47,9 @@ def get_pnj_realtime():
                     "date": date_parsed,
                     "BranchName": region,
                     "TypeName": "PNJ",
-                    "BuyValue": buy,
-                    "SellValue": sell,
+                    "Buy": buy,
+                    "Sell": sell,
                 }
             )
 
     return pd.DataFrame(rows)
-
-
-if __name__ == "__main__":
-    print(get_pnj_realtime().head())

@@ -1,14 +1,14 @@
 import os
 import requests
 import pandas as pd
+from ._to_float import _to_float
 
 SJC_REALTIME_URL = "https://sjc.com.vn/GoldPrice/Services/PriceService.ashx"
 
 
-
 def get_sjc_realtime():
 
-    response = requests.get(SJC_REALTIME_URL, timeout=20)
+    response = requests.get(SJC_REALTIME_URL, timeout=30)
     response.raise_for_status()
     data = response.json()
 
@@ -24,7 +24,10 @@ def get_sjc_realtime():
     date_parsed = pd.to_datetime(date_str, format="%H:%M %d/%m/%Y", errors="coerce")
     df["date"] = date_parsed
 
+    df["Buy"] = df["Buy"].apply(_to_float)
+    df["Sell"] = df["Sell"].apply(_to_float)
+
     # Chỉ lấy các cột yêu cầu
-    df_selected = df[["date", "TypeName", "BranchName", "BuyValue", "SellValue"]].reset_index(drop=True)
+    df_selected = df[["date", "TypeName", "BranchName", "Buy", "Sell"]].reset_index(drop=True)
 
     return df_selected

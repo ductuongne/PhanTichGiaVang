@@ -1,4 +1,4 @@
-TypeName,BranchName,BuyValue,SellValue,date
+TypeName,BranchName,Buy,Sell,date
 PNJ,TPHCM,151800.0,154800.0,2025-12-22 13:18:52
 PNJ,Hà Nội,151800.0,154800.0,2025-12-22 13:18:52
 PNJ,Đà Nẵng,151800.0,154800.0,2025-12-22 13:18:52
