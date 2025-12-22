@@ -10,6 +10,7 @@ Tài liệu này giúp chuẩn bị môi trường, cài thư viện, kích ho�
 ### Thiết lập nhanh
 1) (Tùy chọn) Clone repo: `git clone https://github.com/ductuongne/PhanTichGiaVang ` rồi `cd PhanTichGiaVang`
 2) Tạo môi trường ảo: `python -m venv .venv`
+
 3) Kích hoạt venv: `.\.venv\Scripts\Activate.ps1`
 4) Cập nhật `pip`: `python -m pip install --upgrade pip`
 5) Cài thư viện: `pip install -r requirements.txt`
