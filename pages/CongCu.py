@@ -372,7 +372,7 @@ f"""
 """,
 unsafe_allow_html=True
 )
-
+  
 
 
 # Optional: small debug for you
