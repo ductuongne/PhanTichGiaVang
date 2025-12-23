@@ -138,8 +138,15 @@ def update_from_usd_oz():
     usd_oz = st.session_state.usd_oz
     # Tính giá VND/lượng từ USD/oz người dùng nhập
     vnd_per_luong = usd_per_oz_to_vnd_per_luong(usd_oz)
-    # Giữ nguyên số lượng vàng (không thay đổi)
-    pass
+
+    # Tính số lượng vàng mua được với giá thị trường (dùng giá SJC)
+    # Giả sử người dùng có một số tiền cố định = giá hiện tại * số lượng hiện tại
+    current_value = st.session_state.luong * price_sjc
+    # Tính lại số lượng với giá mới
+    new_luong = current_value / vnd_per_luong
+
+    st.session_state.luong = new_luong
+    st.session_state.chi = new_luong * LUONG_TO_CHI
 
 
 # =========================
@@ -181,10 +188,15 @@ with st.container():
             label_visibility="collapsed"
         )
 
-        # Hiển thị giá VND theo số lượng
+        # Hiển thị giá VND theo số lượng (cả SJC và PNJ)
         total_vnd_sjc = st.session_state.luong * price_sjc
+        total_vnd_pnj = st.session_state.luong * price_pnj
         st.markdown(
             f'<div class="small-under">{fmt_vnd(total_vnd_sjc)} VND (SJC)</div>',
+            unsafe_allow_html=True
+        )
+        st.markdown(
+            f'<div class="small-under">{fmt_vnd(total_vnd_pnj)} VND (PNJ)</div>',
             unsafe_allow_html=True
         )
 
@@ -204,10 +216,15 @@ with st.container():
             label_visibility="collapsed"
         )
 
-        # Hiển thị giá VND theo số lượng
-        total_vnd_chi = (st.session_state.chi / LUONG_TO_CHI) * price_sjc
+        # Hiển thị giá VND theo số lượng (cả SJC và PNJ)
+        total_vnd_chi_sjc = (st.session_state.chi / LUONG_TO_CHI) * price_sjc
+        total_vnd_chi_pnj = (st.session_state.chi / LUONG_TO_CHI) * price_pnj
         st.markdown(
-            f'<div class="small-under">{fmt_vnd(total_vnd_chi)} VND (SJC)</div>',
+            f'<div class="small-under">{fmt_vnd(total_vnd_chi_sjc)} VND (SJC)</div>',
+            unsafe_allow_html=True
+        )
+        st.markdown(
+            f'<div class="small-under">{fmt_vnd(total_vnd_chi_pnj)} VND (PNJ)</div>',
             unsafe_allow_html=True
         )
 
