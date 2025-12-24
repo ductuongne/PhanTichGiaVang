@@ -131,12 +131,11 @@ fmt_usd = lambda x: f"{x:,.0f}"
 # ==================================================
 st.markdown('<div class="pill-title">Convert Gold</div>', unsafe_allow_html=True)
 
-st.markdown('<div class="converter-wrap">', unsafe_allow_html=True)
 
 usd_oz_sjc = vnd_luong_to_usd_oz(price_sjc)
 usd_oz_pnj = vnd_luong_to_usd_oz(price_pnj)
 
-c1, a1, c2, a2, c3 = st.columns([5, 1, 5, 1, 5], vertical_alignment="center")
+c1, a1, c2, a2, c3 = st.columns([5, 1, 5, 1, 5], vertical_alignment="top")
 
 # ----- LUONG -----
 with c1:
