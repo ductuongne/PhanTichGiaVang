@@ -7,6 +7,15 @@ from utils.plot import plot_gold_simple
 st.set_page_config(page_title="Biểu đồ giá", layout="wide")
 render_navbar()
 
+def load_css(path: str):
+    try:
+        with open(path, encoding="utf-8") as f:
+            st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+    except FileNotFoundError:
+        st.error(f"Không tìm thấy CSS: {path}")
+
+load_css("assets/styles/base.css")
+load_css("assets/styles/bieudogia.css")
 
 col1, col2 = st.columns(2)
 

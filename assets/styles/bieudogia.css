@@ -1,0 +1,43 @@
+.gold-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+  padding: 20px 22px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.04);
+  height: 100%;
+}
+
+/* Title trong card */
+.gold-card-title {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+/* Subtitle / slogan */
+.gold-card-sub {
+  font-size: 14px;
+  color: #6b7280;
+  margin-bottom: 16px;
+}
+
+/* Metric spacing */
+.gold-card .stMetric {
+  margin-top: 14px;
+  margin-bottom: 10px;
+}
+
+/* High / Low text */
+.gold-card-extra {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #374151;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Selectbox gọn lại */
+.gold-card div[data-baseweb="select"] {
+  margin-top: 6px;
+  margin-bottom: 8px;
+}
