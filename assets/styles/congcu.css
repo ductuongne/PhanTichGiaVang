@@ -1,0 +1,134 @@
+
+.pill-title {
+  display: inline-block;
+  padding: 8px 14px;
+  border-radius: 15px;
+  background: linear-gradient(180deg, #9b0d0d 0%, #6f0a0a 100%);
+  color: #fff;
+  font-weight: 800;
+  letter-spacing: .3px;
+  box-shadow: 0 10px 24px rgba(155, 13, 13, .25);
+  margin-bottom: 14px;
+}
+
+.converter-wrap {
+  background: linear-gradient(180deg, rgba(25,25,32,.65), rgba(10,10,14,.65));
+  border: 1px solid rgba(255, 209, 102, .20);
+  border-radius: 14px;
+  padding: 18px;
+  box-shadow: 0 25px 60px rgba(0,0,0,.45);
+  backdrop-filter: blur(6px);
+}
+
+.unit-label {
+  color: rgba(255, 209, 102, .92);
+  font-weight: 700;
+  font-size: 25px;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  justify-content: center;
+}
+
+.unit-dot {
+  width: 10px;
+  height: 7px;
+  border-radius: 99px;
+  background: rgba(255, 209, 102, .85);
+  box-shadow: 0 0 12px rgba(255, 209, 102, .35);
+}
+
+.block-box {
+  border-radius: 12px;
+  border: 1px solid rgba(255, 209, 102, .35);
+  background: rgba(10, 10, 14, .55);
+  padding: 10px 12px 8px;
+  box-shadow: inset 0 0 0 1px rgba(255, 209, 102, .06);
+}
+
+.small-under {
+  margin-top: 10px;
+  color: rgba(255, 255, 255, .75);
+  font-size: 20px;
+}
+
+.arrow-col {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 92px;
+}
+
+.arrow {
+  font-size: 26px;
+  color: rgba(255, 209, 102, .95);
+  text-shadow: 0 0 16px rgba(255, 209, 102, .35);
+}
+
+.note {
+  margin-top: 14px;
+  color: rgba(255,255,255,.70);
+  font-size: 13px;
+}
+
+.info-row {
+  margin-top: 16px;
+  display: flex;
+  gap: 14px;
+}
+
+.info-card {
+  flex: 1;
+  border-radius: 14px;
+  background: linear-gradient(180deg, rgba(22,22,28,.65), rgba(10,10,14,.65));
+  border: 1px solid rgba(255, 209, 102, .18);
+  padding: 16px 14px;
+  box-shadow: 0 18px 40px rgba(0,0,0,.35);
+  min-height: 92px;
+}
+
+.info-emoji {
+  font-size: 26px;
+  margin-bottom: 8px;
+}
+
+.info-text {
+  color: rgba(255,255,255,.88);
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.info-sub {
+  margin-top: 2px;
+  color: rgba(255,255,255,.65);
+  font-size: 12px;
+}
+
+.info-icon {
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.info-icon img {
+  height: 80px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.arrow-col{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* KÉO XUỐNG THÊM */
+  margin-top: 14px;   /* tăng số này để xuống nữa: 12px, 16px, 20px... */
+}
+
+
+
+

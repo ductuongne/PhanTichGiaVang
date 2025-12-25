@@ -1,0 +1,43 @@
+.fake-search,
+.search-bar,
+.top-pill,
+.header-pill,
+.nav-search,
+div:has(> input[type="search"]) {
+  display: none !important;
+}
+
+.stApp {
+  background: radial-gradient(
+    1200px 600px at 50% 10%,
+    #241a0c 0%,
+    #0b0b0f 60%,
+    #07070a 100%
+  );
+}
+
+.block-container {
+  padding-top: 24px;
+  padding-bottom: 40px;
+}
+
+div[data-baseweb="select"] > div {
+  background: rgba(10,10,14,.6) !important;
+  border-color: rgba(255, 209, 102, .25) !important;
+}
+
+div[data-baseweb="input"] input {
+  background: rgba(10,10,14,0) !important;
+  color: #ffd166 !important;
+  font-weight: 600 !important;
+  font-size: 18px !important;
+}
+
+label {
+  color: rgba(255,255,255,.75) !important;
+}
+
+div.stNumberInput label,
+div.stSelectbox label {
+  display: none !important;
+}

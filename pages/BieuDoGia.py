@@ -47,7 +47,17 @@ if data_type == "History":
 
 
 
-# ==== render chart ====
-plot_gold_simple(df, company, data_type)
+if data_type == "History":
+    plot_gold_simple(df, company, data_type)
+else:
+    st.dataframe(
+        df[["Buy", "Sell"]], 
+        use_container_width=True
+    )
+    
+    row = df.iloc[0]
+
+
+
 
 clean_streamlit_ui()
