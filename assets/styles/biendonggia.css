@@ -1,111 +1,44 @@
-* {
-  box-sizing: border-box;
-}
-
-.pill-title {
-  font-size: 22px;
-  font-weight: 700;
-  margin-bottom: 22px;
-  color: #f5f5f7;
-}
-
-/* .company-card {
-  background: #0c0c10;
-  padding: 14px 16px;
-  border-radius: 14px;
-
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
-
-  max-width: 440px;
-  margin: 0 auto;
-} */
-
-
-
-/* metric nằm NGAY SAU company-card */
-.company-card + div [data-testid="stMetric"] {
-  background: #111;
-  border-radius: 12px;
-}
-
-
-
-[data-testid="column"] > .company-card {
-  margin-top: 12px;
-}
-
-
-.brand-title {
-  font-size: 18px;
-  font-weight: 700;
-  letter-spacing: 0.4px;
-  margin-bottom: 10px;
-}
-
-.brand-title.pnj {
-  color: #ffd166;
-}
-
-.brand-title.sjc {
-  color: #ff9f1c;
-}
-
-.company-card div[data-baseweb="select"] {
+.pill-title{
+  display: inline-block;
+  padding: 8px 14px;
+  border-radius: 15px;
+  background: linear-gradient(180deg, #9b8a0d 0%, #6f6a0a 100%);
+  color: #fff;
+  font-weight: 800;
+  letter-spacing: .3px;
+  box-shadow: 0 10px 24px rgba(155, 13, 13, .25);
   margin-bottom: 14px;
 }
 
+/* CARD bao mỗi doanh nghiệp */
+div[data-testid="stVerticalBlock"]:has(.brand-title) {
+    background: linear-gradient(
+        180deg,
+        rgba(255, 215, 0, 0.04),
+        rgba(0, 0, 0, 0.55)
+    );
+    border-radius: 16px;
+    padding: 18px 20px 22px;
+    margin-bottom: 20px;
 
-.company-card [data-testid="stMetric"] {
-  background: linear-gradient(
-    180deg,
-    #111117,
-    #0a0a0e
-  );
-  padding: 14px 16px;
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 215, 0, 0.18);
+    box-shadow:
+        0 8px 30px rgba(0, 0, 0, 0.6),
+        inset 0 0 0 1px rgba(255, 215, 0, 0.05);
 }
 
-
-.company-card [data-testid="stMetricLabel"] {
-  font-size: 13px;
-  color: #9a9aa3;
+.brand-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    letter-spacing: 0.5px;
 }
 
-
-.company-card [data-testid="stMetricValue"] {
-  font-size: 26px;
-  font-weight: 700;
-  color: #ffffff;
+/* Màu theo brand */
+.brand-title.pnj {
+    color: #ffd700;
 }
 
-
-.company-card [data-testid="stMetricDelta"] {
-  font-size: 14px;
-  margin-top: 4px;
-}
-
-.metric-extra {
-  margin-top: 10px;
-  display: flex;
-  justify-content: space-between;
-  font-size: 13px;
-  color: #b3b3bb;
-}
-
-.metric-extra b {
-  color: #ffd166;
-  font-weight: 600;
-}
-
-.company-card [data-testid="stAlert"] {
-  background: rgba(30, 80, 140, 0.15);
-  border: 1px solid rgba(80, 140, 220, 0.35);
-  color: #7db3ff;
-}
-
-
-section[data-testid="stHorizontalBlock"] {
-  gap: 24px;
+.brand-title.sjc {
+    color: #f5c542;
 }
