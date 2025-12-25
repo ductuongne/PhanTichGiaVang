@@ -92,31 +92,56 @@ def usd_oz_to_vnd_luong(usd_oz: float) -> float:
 
 
 # ==================================================
-# SESSION STATE
+# SESSION STATE (canonical + widget keys)
 # ==================================================
 st.session_state.setdefault("luong", 1.0)
-st.session_state.setdefault("chi", 10.0)
+st.session_state.setdefault("chi", st.session_state.luong * LUONG_TO_CHI)
+
+# tách key của widget input
+st.session_state.setdefault("luong_input", st.session_state.luong)
+st.session_state.setdefault("chi_input", st.session_state.chi)
+
 st.session_state.setdefault("usd_oz", vnd_luong_to_usd_oz(price_sjc))
+st.session_state.setdefault("usd_oz_input", st.session_state.usd_oz)
+
 
 
 # ==================================================
 # UPDATE HANDLERS
 # ==================================================
 def update_from_luong():
-    st.session_state.chi = st.session_state.luong * LUONG_TO_CHI
+    luong = float(st.session_state.luong_input)
+    st.session_state.luong = luong
+
+    st.session_state.chi = round(luong * LUONG_TO_CHI, 2)
+    st.session_state.chi_input = st.session_state.chi  # cập nhật widget bên Chỉ
 
 
 def update_from_chi():
-    st.session_state.luong = st.session_state.chi / LUONG_TO_CHI
+    chi = float(st.session_state.chi_input)
+    st.session_state.chi = chi
+
+    st.session_state.luong = round(chi / LUONG_TO_CHI, 2)
+    st.session_state.luong_input = st.session_state.luong  # cập nhật widget bên Lượng
 
 
 def update_from_usd_oz():
-    vnd_luong = usd_oz_to_vnd_luong(st.session_state.usd_oz)
-    current_value = st.session_state.luong * price_sjc
-    new_luong = current_value / vnd_luong
+    usd_oz = float(st.session_state.usd_oz_input)
+    st.session_state.usd_oz = usd_oz
 
-    st.session_state.luong = new_luong
-    st.session_state.chi = new_luong * LUONG_TO_CHI
+    vnd_luong = usd_oz_to_vnd_luong(usd_oz)
+
+    # giữ "giá trị hiện tại" theo lượng đang có (SJC)
+    current_value = st.session_state.luong * price_sjc
+    new_luong = current_value / vnd_luong if vnd_luong else 0.0
+
+    st.session_state.luong = round(new_luong, 2)
+    st.session_state.chi = round(st.session_state.luong * LUONG_TO_CHI, 2)
+
+    # đẩy lại UI
+    st.session_state.luong_input = st.session_state.luong
+    st.session_state.chi_input = st.session_state.chi
+
 
 
 # ==================================================
@@ -131,24 +156,26 @@ fmt_usd = lambda x: f"{x:,.0f}"
 # ==================================================
 st.markdown('<div class="pill-title">Convert Gold</div>', unsafe_allow_html=True)
 
-st.markdown('<div class="converter-wrap">', unsafe_allow_html=True)
 
 usd_oz_sjc = vnd_luong_to_usd_oz(price_sjc)
 usd_oz_pnj = vnd_luong_to_usd_oz(price_pnj)
 
-c1, a1, c2, a2, c3 = st.columns([5, 1, 5, 1, 5], vertical_alignment="center")
+c1, a1, c2, a2, c3 = st.columns([5, 1, 5, 1, 5], vertical_alignment="top")
 
 # ----- LUONG -----
 with c1:
     st.markdown('<div class="unit-label"><span class="unit-dot"></span>Lượng</div>', unsafe_allow_html=True)
     st.number_input(
-        "luong",
-        min_value=0.0,
-        step=0.01,
-        format="%.2f",
-        on_change=update_from_luong,
-        label_visibility="collapsed"
+    "luong",
+    min_value=0.0,
+    value=float(st.session_state.luong_input),
+    step=0.01,
+    format="%.2f",
+    key="luong_input",
+    on_change=update_from_luong,
+    label_visibility="collapsed"
     )
+
     st.markdown(f'<div class="small-under">{fmt_vnd(st.session_state.luong * price_sjc)} VND (SJC)</div>', unsafe_allow_html=True)
     st.markdown(f'<div class="small-under">{fmt_vnd(st.session_state.luong * price_pnj)} VND (PNJ)</div>', unsafe_allow_html=True)
 
@@ -162,13 +189,16 @@ with a1:
 with c2:
     st.markdown('<div class="unit-label"><span class="unit-dot"></span>Chỉ</div>', unsafe_allow_html=True)
     st.number_input(
-        "chi",
-        min_value=0.0,
-        step=0.1,
-        format="%.2f",
-        on_change=update_from_chi,
-        label_visibility="collapsed"
+    "chi",
+    min_value=0.0,
+    value=float(st.session_state.chi_input),
+    step=0.1,
+    format="%.2f",
+    key="chi_input",
+    on_change=update_from_chi,
+    label_visibility="collapsed"
     )
+
     vnd_chi_sjc = (st.session_state.chi / LUONG_TO_CHI) * price_sjc
     vnd_chi_pnj = (st.session_state.chi / LUONG_TO_CHI) * price_pnj
     st.markdown(f'<div class="small-under">{fmt_vnd(vnd_chi_sjc)} VND (SJC)</div>', unsafe_allow_html=True)
@@ -184,13 +214,16 @@ with a2:
 with c3:
     st.markdown('<div class="unit-label"><span class="unit-dot"></span>USD/oz</div>', unsafe_allow_html=True)
     st.number_input(
-        "usd_oz",
-        min_value=0.0,
-        step=1.0,
-        format="%.0f",
-        on_change=update_from_usd_oz,
-        label_visibility="collapsed"
+    "usd_oz",
+    min_value=0.0,
+    value=float(st.session_state.usd_oz_input),
+    step=1.0,
+    format="%.0f",
+    key="usd_oz_input",
+    on_change=update_from_usd_oz,
+    label_visibility="collapsed"
     )
+
     st.markdown('<div class="small-under">Giá vàng thế giới</div>', unsafe_allow_html=True)
 
 
