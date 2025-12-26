@@ -1,43 +1,19 @@
-.gold-card {
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
-  border-radius: 18px;
-  padding: 20px 22px;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.04);
-  height: 100%;
+.volatility-box {
+  background: linear-gradient(135deg, #111827, #1f2933);
+  border: 1px solid #374151;
+  color: #f9fafb;
 }
 
-/* Title trong card */
-.gold-card-title {
-  font-size: 26px;
-  font-weight: 700;
-  margin-bottom: 6px;
+/* Radio & select gọn hơn */
+.stRadio > div {
+  gap: 10px;
 }
 
-/* Subtitle / slogan */
-.gold-card-sub {
-  font-size: 14px;
-  color: #6b7280;
-  margin-bottom: 16px;
+.stSelectbox {
+  max-width: 320px;
 }
 
-/* Metric spacing */
-.gold-card .stMetric {
-  margin-top: 14px;
-  margin-bottom: 10px;
-}
-
-/* High / Low text */
-.gold-card-extra {
-  margin-top: 10px;
-  font-size: 14px;
-  color: #374151;
-  display: flex;
-  justify-content: space-between;
-}
-
-/* Selectbox gọn lại */
-.gold-card div[data-baseweb="select"] {
-  margin-top: 6px;
-  margin-bottom: 8px;
+/* Chart spacing */
+.element-container:has(svg) {
+  margin-top: 12px;
 }

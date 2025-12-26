@@ -41,3 +41,21 @@ div.stNumberInput label,
 div.stSelectbox label {
   display: none !important;
 }
+
+/* ===== TEXT CONTRAST FIX ===== */
+body {
+  color: #e5e7eb; /* text chính */
+}
+
+label,
+.stRadio label,
+.stSelectbox label {
+  color: #f3f4f6;
+  font-weight: 500;
+}
+
+/* text phụ */
+.text-muted,
+.stMarkdown p {
+  color: #d1d5db;
+}

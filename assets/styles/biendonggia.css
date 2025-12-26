@@ -1,4 +1,4 @@
-.pill-title{
+.pill-title {
   display: inline-block;
   padding: 8px 14px;
   border-radius: 15px;
@@ -10,35 +10,33 @@
   margin-bottom: 14px;
 }
 
-/* CARD bao mỗi doanh nghiệp */
 div[data-testid="stVerticalBlock"]:has(.brand-title) {
-    background: linear-gradient(
-        180deg,
-        rgba(255, 215, 0, 0.04),
-        rgba(0, 0, 0, 0.55)
-    );
+    background: linear-gradient(180deg, rgba(255, 215, 0, 0.04), rgba(0, 0, 0, 0.55));
     border-radius: 16px;
     padding: 18px 20px 22px;
-    margin-bottom: 20px;
-
+    margin-bottom: 25px;
     border: 1px solid rgba(255, 215, 0, 0.18);
-    box-shadow:
-        0 8px 30px rgba(0, 0, 0, 0.6),
-        inset 0 0 0 1px rgba(255, 215, 0, 0.05);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6), inset 0 0 0 1px rgba(255, 215, 0, 0.05);
 }
 
 .brand-title {
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 700;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     letter-spacing: 0.5px;
+    text-transform: uppercase;
 }
 
-/* Màu theo brand */
-.brand-title.pnj {
-    color: #ffd700;
-}
+.brand-title.pnj { color: #ffd700; }
+.brand-title.sjc { color: #f5c542; }
 
-.brand-title.sjc {
-    color: #f5c542;
+.vol-alert-container {
+    padding: 12px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border-left: 4px solid #888;
+    margin-top: 10px;
 }
+.vol-high { border-left-color: #ff4b4b; }
+.vol-low { border-left-color: #00c853; }
+.vol-text { font-size: 1.1rem; font-weight: 700; }
