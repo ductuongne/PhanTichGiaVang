@@ -1,3 +1,4 @@
+
 ## Phân tích giá vàng – hướng dẫn chạy dự án
 
 Tài liệu này giúp chuẩn bị môi trường, cài thư viện, kích hoạt virtualenv và chạy ứng dụng.
@@ -48,3 +49,14 @@ PhanTichGiaVang/
 - Giữ dữ liệu nặng trong `data/` và tránh commit file lớn.
 - Tạo trang mới cho Streamlit bằng cách thêm file Python vào `pages/`.
 - Đặt hàm tái sử dụng vào `utils/` để dễ quản lý.
+
+
+## ⚠️ Miễn trừ trách nhiệm (Disclaimer)
+
+**Mục đích học tập**:  Dự án này được thực hiện hoàn toàn với mục đích học tập cho môn học lập trình Python. Đây là bài tập lớn của sinh viên, không phải sản phẩm thương mại hay công cụ tư vấn đầu tư. 
+
+**Không phải lời khuyên tài chính**:  Mọi phân tích, dự đoán và thông tin về giá vàng trong dự án này chỉ mang tính chất minh họa và thực hành kỹ năng lập trình.  Không nên coi đây là lời khuyên đầu tư hay tài chính chuyên nghiệp.
+
+**Độ chính xác**: Tác giả không đảm bảo về độ chính xác, đầy đủ hay cập nhật của dữ liệu và kết quả phân tích. Việc sử dụng thông tin từ dự án này để đưa ra quyết định đầu tư là hoàn toàn tự chịu rủi ro.
+
+**Trách nhiệm**:  Tác giả không chịu trách nhiệm cho bất kỳ tổn thất, thiệt hại hay hậu quả nào phát sinh từ việc sử dụng thông tin trong dự án này.
