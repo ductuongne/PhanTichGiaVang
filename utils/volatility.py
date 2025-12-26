@@ -3,10 +3,9 @@ import pandas as pd
 import altair as alt
 
 
-def calc_volatility_agg(df, price_col="Buy"):
-    """
-    Tính biến động theo thời gian (aggregate theo date)
-    """
+import numpy as np
+
+def calc_volatility_agg(df, price_col="Buy", window=7):
     df = (
         df.groupby("date")[price_col]
           .mean()
@@ -14,25 +13,30 @@ def calc_volatility_agg(df, price_col="Buy"):
           .sort_values("date")
     )
 
-    if len(df) < 2:
+    if len(df) < window + 1:
         return None
+
+    df["return"] = df[price_col].pct_change()
+    df["volatility"] = df["return"].rolling(window).std()
 
     current = df.iloc[-1][price_col]
     previous = df.iloc[-2][price_col]
-
     delta = current - previous
     delta_pct = delta / previous * 100
 
-    high = df[price_col].max()
-    low = df[price_col].min()
+    vol = df.iloc[-1]["volatility"]
 
     return {
         "current": current,
         "delta": delta,
         "delta_pct": delta_pct,
-        "high": high,
-        "low": low,
+        "volatility": vol,
+        "vol_level": (
+            "High" if vol > df["volatility"].mean() * 1.5
+            else "Low"
+        )
     }
+
 
 def prepare_timeseries(df, branch, freq="D"):
     df = df.copy()
@@ -49,7 +53,6 @@ def prepare_timeseries(df, branch, freq="D"):
     return df
 
 
-
 def render_company_card(
     col,
     name: str,
@@ -62,17 +65,14 @@ def render_company_card(
 
     with col:
         with st.container():
-            # ===== Title =====
             st.markdown(
                 f'<div class="brand-title {title_class}">{name}</div>',
                 unsafe_allow_html=True
             )
 
-            # ===== Load data =====
             df_all = pd.read_csv(csv_path)
             df_all["date"] = pd.to_datetime(df_all["date"])
 
-            # ===== Branch select =====
             branches = sorted(df_all["BranchName"].dropna().unique())
             branch = st.selectbox(
                 select_label,
@@ -80,7 +80,6 @@ def render_company_card(
                 key=f"{key_prefix}_branch"
             )
 
-            # ===== Frequency select =====
             freq = st.radio(
                 "Độ chi tiết",
                 ["Theo ngày", "Theo tháng"],
@@ -89,10 +88,8 @@ def render_company_card(
             )
             freq_map = {"Theo ngày": "D", "Theo tháng": "M"}
 
-            # ===== Filter branch =====
             df_branch = df_all[df_all["BranchName"] == branch]
 
-            # ===== Metric =====
             result = calc_volatility_agg(df_branch)
             if result:
                 st.metric(
@@ -103,7 +100,6 @@ def render_company_card(
             else:
                 st.info("Không đủ dữ liệu")
 
-            # ===== Prepare chart data =====
             df_chart = prepare_timeseries(
                 df_all,
                 branch,
@@ -117,7 +113,6 @@ def render_company_card(
                 value_name="Price"
             )
 
-            # ===== Chart =====
             chart = (
                 alt.Chart(df_long)
                 .mark_line()
