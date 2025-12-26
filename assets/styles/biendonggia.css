@@ -1,59 +1,44 @@
-
-.pill-title {
+.pill-title{
   display: inline-block;
-  padding: 8px 16px;
-  border-radius: 16px;
-  background: linear-gradient(180deg, #b8860b, #8b6508);
+  padding: 8px 14px;
+  border-radius: 15px;
+  background: linear-gradient(180deg, #9b8a0d 0%, #6f6a0a 100%);
   color: #fff;
   font-weight: 800;
-  margin-bottom: 18px;
-  box-shadow: 0 10px 26px rgba(184, 134, 11, 0.35);
+  letter-spacing: .3px;
+  box-shadow: 0 10px 24px rgba(155, 13, 13, .25);
+  margin-bottom: 14px;
 }
 
+/* CARD bao mỗi doanh nghiệp */
+div[data-testid="stVerticalBlock"]:has(.brand-title) {
+    background: linear-gradient(
+        180deg,
+        rgba(255, 215, 0, 0.04),
+        rgba(0, 0, 0, 0.55)
+    );
+    border-radius: 16px;
+    padding: 18px 20px 22px;
+    margin-bottom: 20px;
+
+    border: 1px solid rgba(255, 215, 0, 0.18);
+    box-shadow:
+        0 8px 30px rgba(0, 0, 0, 0.6),
+        inset 0 0 0 1px rgba(255, 215, 0, 0.05);
+}
 
 .brand-title {
-  font-size: 20px;
-  font-weight: 800;
-  margin-bottom: 10px;
-  letter-spacing: 0.4px;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    letter-spacing: 0.5px;
 }
 
+/* Màu theo brand */
 .brand-title.pnj {
-  color: #ffd166;
+    color: #ffd700;
 }
 
 .brand-title.sjc {
-  color: #ff9f1c;
-}
-
-
-.metric-card {
-  background: linear-gradient(
-    180deg,
-    rgba(22,22,28,0.70),
-    rgba(10,10,14,0.70)
-  );
-  border: 1px solid rgba(255, 209, 102, 0.25);
-  border-radius: 16px;
-  padding: 16px 16px 14px;
-  box-shadow: 0 22px 50px rgba(0,0,0,0.45);
-  margin-top: 8px;
-}
-
-
-.metric-extra {
-  margin-top: 10px;
-  display: flex;
-  justify-content: space-between;
-  font-size: 14px;
-  color: rgba(255,255,255,0.75);
-}
-
-.metric-extra b {
-  color: #ffd166;
-}
-
-
-div[data-baseweb="select"] {
-  margin-bottom: 8px;
+    color: #f5c542;
 }
