@@ -253,7 +253,7 @@ with c3:
 # ----- FOOTER -----
 today = datetime.now().strftime("%d/%m/%Y")
 st.markdown(
-    f'<div class="note">* SJC: {fmt_vnd(price_sjc)} | PNJ: {fmt_vnd(price_pnj)} VND/lượng (ngày {today})</div>',
+    f'<div class="note">* SJC: {fmt_vnd(price_sjc)} | PNJ: {fmt_vnd(price_pnj)} nghìn VND/lượng (ngày {today})</div>',
     unsafe_allow_html=True
 )
 
