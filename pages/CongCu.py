@@ -86,7 +86,7 @@ def load_gold_prices():
         df_pnj = pd.read_csv("data/pnj/gold_pnj_realtime.csv")
         df_sjc = pd.read_csv("data/sjc/gold_sjc_realtime.csv")
 
-        return df_pnj.iloc[0]["Sell"], df_sjc.iloc[0]["Sell"]
+        return df_pnj.iloc[0]["Sell"] * 1000, df_sjc.iloc[0]["Sell"] * 1000
     except Exception as e:
         st.error(f"Lỗi đọc giá vàng: {e}")
         return 15_650_000, 15_900_000
@@ -199,8 +199,8 @@ with c1:
     label_visibility="collapsed"
     )
 
-    st.markdown(f'<div class="small-under">{fmt_vnd(st.session_state.luong * price_sjc)} nghìn VND (SJC)</div>', unsafe_allow_html=True)
-    st.markdown(f'<div class="small-under">{fmt_vnd(st.session_state.luong * price_pnj)} nghìn VND (PNJ)</div>', unsafe_allow_html=True)
+    st.markdown(f'<div class="small-under">{fmt_vnd(st.session_state.luong * price_sjc)} VND (SJC)</div>', unsafe_allow_html=True)
+    st.markdown(f'<div class="small-under">{fmt_vnd(st.session_state.luong * price_pnj)} VND (PNJ)</div>', unsafe_allow_html=True)
 
 
 # ----- ARROW -----
@@ -224,8 +224,8 @@ with c2:
 
     vnd_chi_sjc = (st.session_state.chi / LUONG_TO_CHI) * price_sjc
     vnd_chi_pnj = (st.session_state.chi / LUONG_TO_CHI) * price_pnj
-    st.markdown(f'<div class="small-under">{fmt_vnd(vnd_chi_sjc)} nghìn VND (SJC)</div>', unsafe_allow_html=True)
-    st.markdown(f'<div class="small-under">{fmt_vnd(vnd_chi_pnj)} nghìn VND (PNJ)</div>', unsafe_allow_html=True)
+    st.markdown(f'<div class="small-under">{fmt_vnd(vnd_chi_sjc)} VND (SJC)</div>', unsafe_allow_html=True)
+    st.markdown(f'<div class="small-under">{fmt_vnd(vnd_chi_pnj)} VND (PNJ)</div>', unsafe_allow_html=True)
 
 
 # ----- ARROW -----
@@ -248,7 +248,7 @@ with c3:
     )
 
     st.markdown('<div class="small-under">Quy đổi tiền tệ theo tỷ giá USD/VND</div>', unsafe_allow_html=True)
-
+    st.markdown(f'<div class="small-under">1 USD = {fmt_vnd(USD_TO_VND)} VND</div>', unsafe_allow_html=True)
 
 # ----- FOOTER -----
 today = datetime.now().strftime("%d/%m/%Y")
@@ -263,7 +263,7 @@ st.markdown(
 <div class="info-row">
   <div class="info-card">
     <div class="info-icon"><img src="{IMG_LUONG}"/></div>
-    <div class="info-text">1 Lượng = 10 Chỉ</div>
+    <div class="info-text">1 Lượng = 1 Cây vàng = 10 Chỉ</div>
     <div class="info-sub">Đơn vị vàng Việt Nam</div>
   </div>
 
