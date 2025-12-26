@@ -12,18 +12,24 @@ st.set_page_config(page_title="Phân tích Xu hướng", layout="wide")
 render_navbar()
 clean_streamlit_ui()
 
+def load_css(path: str):
+    try:
+        with open(path, encoding="utf-8") as f:
+            st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+    except FileNotFoundError:
+        st.error(f"Không tìm thấy CSS: {path}")
+
+
+load_css("assets/styles/dudoan.css")
+
 st.title("📊 Dự đoán Xu hướng Giá Vàng SJC")
 st.markdown("Mô hình sử dụng **Linear Regression** để xác định trend theo từng khu vực.")
 
-# =======================
-# 1️⃣ LOAD DATA
-# =======================
+# Load dữ liệu
 with st.spinner("Đang tải dữ liệu..."):
     df = load_sjc_data()
 
-# =======================
-# 2️⃣ DROPDOWN CHỌN VÙNG
-# =======================
+# Dropdown chọn khu vực
 regions = sorted(df["BranchName"].unique())
 
 selected_region = st.selectbox(
@@ -33,10 +39,7 @@ selected_region = st.selectbox(
 
 df_region = df[df["BranchName"] == selected_region]
 
-# =======================
-# 3️⃣ TRAIN & PREDICT
-# =======================
-# Đảm bảo dữ liệu vùng đã được sắp xếp theo thời gian để dòng cuối là mới nhất
+# Train mô hình và dự đoán
 df_region = df_region.sort_values("date")
 
 with st.spinner("Đang huấn luyện mô hình và dự đoán..."):
@@ -68,9 +71,7 @@ with col3:
 
 st.divider()
 
-# =======================
-# 5️⃣ BIỂU ĐỒ GIÁ & DỰ ĐOÁN
-# =======================
+# Biểu đồ giá thực tế và dự đoán
 st.subheader("1. So sánh Giá thực tế & Dự đoán")
 
 sns.set_theme(style="darkgrid")
@@ -97,9 +98,7 @@ ax1.legend()
 
 st.pyplot(fig1)
 
-# =======================
-# 6️⃣ BIỂU ĐỒ LỢI NHUẬN (BACKTEST ĐƠN GIẢN)
-# =======================
+# Biểu đồ lợi nhuận
 st.subheader("2. Hiệu quả đầu tư (Backtest mô phỏng)")
 
 df_bt = df_display.copy()
