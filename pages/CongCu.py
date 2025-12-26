@@ -57,9 +57,24 @@ IMG_TYGIA = img_to_data_uri("assets/images/ty_gia.png")
 # ==================================================
 CHI_TO_GRAM = 3.75
 LUONG_TO_CHI = 10
-OZ_TO_GRAM = 31.1035
 LUONG_TO_GRAM = 37.5
-USD_TO_VND = 25_000
+
+
+# ==================================================
+# LOAD USD/VND RATE
+# ==================================================
+@st.cache_data
+def load_usd_vnd_rate():
+    try:
+        df = pd.read_csv("data/usd/usd_vnd_rate.csv")
+        df = df.sort_values("date")
+        return float(df.iloc[-1]["usd_vnd_rate"])
+    except Exception as e:
+        st.warning(f"Không đọc được tỷ giá USD/VND, dùng 25,000 VND: {e}")
+        return 25_000.0
+
+
+USD_TO_VND = load_usd_vnd_rate()
 
 
 # ==================================================
@@ -83,12 +98,12 @@ price_pnj, price_sjc = load_gold_prices()
 # ==================================================
 # CONVERT FUNCTIONS
 # ==================================================
-def vnd_luong_to_usd_oz(vnd_luong: float) -> float:
-    return vnd_luong / (USD_TO_VND * (LUONG_TO_GRAM / OZ_TO_GRAM))
+def vnd_to_usd(vnd_value: float) -> float:
+    return vnd_value / USD_TO_VND if USD_TO_VND else 0.0
 
 
-def usd_oz_to_vnd_luong(usd_oz: float) -> float:
-    return usd_oz * USD_TO_VND * (LUONG_TO_GRAM / OZ_TO_GRAM)
+def usd_to_vnd(usd_value: float) -> float:
+    return usd_value * USD_TO_VND
 
 
 # ==================================================
@@ -101,8 +116,8 @@ st.session_state.setdefault("chi", st.session_state.luong * LUONG_TO_CHI)
 st.session_state.setdefault("luong_input", st.session_state.luong)
 st.session_state.setdefault("chi_input", st.session_state.chi)
 
-st.session_state.setdefault("usd_oz", vnd_luong_to_usd_oz(price_sjc))
-st.session_state.setdefault("usd_oz_input", st.session_state.usd_oz)
+st.session_state.setdefault("usd", vnd_to_usd(price_sjc))
+st.session_state.setdefault("usd_input", st.session_state.usd)
 
 
 
@@ -116,6 +131,11 @@ def update_from_luong():
     st.session_state.chi = round(luong * LUONG_TO_CHI, 2)
     st.session_state.chi_input = st.session_state.chi  # cập nhật widget bên Chỉ
 
+    # cập nhật USD theo giá SJC
+    vnd_total = st.session_state.luong * price_sjc
+    st.session_state.usd = vnd_to_usd(vnd_total)
+    st.session_state.usd_input = st.session_state.usd
+
 
 def update_from_chi():
     chi = float(st.session_state.chi_input)
@@ -124,23 +144,26 @@ def update_from_chi():
     st.session_state.luong = round(chi / LUONG_TO_CHI, 2)
     st.session_state.luong_input = st.session_state.luong  # cập nhật widget bên Lượng
 
+    # cập nhật USD theo giá SJC
+    vnd_total = st.session_state.luong * price_sjc
+    st.session_state.usd = vnd_to_usd(vnd_total)
+    st.session_state.usd_input = st.session_state.usd
 
-def update_from_usd_oz():
-    usd_oz = float(st.session_state.usd_oz_input)
-    st.session_state.usd_oz = usd_oz
 
-    vnd_luong = usd_oz_to_vnd_luong(usd_oz)
+def update_from_usd():
+    usd_val = float(st.session_state.usd_input)
+    st.session_state.usd = usd_val
 
-    # giữ "giá trị hiện tại" theo lượng đang có (SJC)
-    current_value = st.session_state.luong * price_sjc
-    new_luong = current_value / vnd_luong if vnd_luong else 0.0
+    # quy đổi tổng giá trị USD sang VND theo tỷ giá, sau đó về lượng (theo giá SJC)
+    vnd_total = usd_to_vnd(usd_val)
+    new_luong = vnd_total / price_sjc if price_sjc else 0.0
 
     st.session_state.luong = round(new_luong, 2)
     st.session_state.chi = round(st.session_state.luong * LUONG_TO_CHI, 2)
 
-    # đẩy lại UI
     st.session_state.luong_input = st.session_state.luong
     st.session_state.chi_input = st.session_state.chi
+    st.session_state.usd_input = st.session_state.usd
 
 
 
@@ -157,8 +180,8 @@ fmt_usd = lambda x: f"{x:,.0f}"
 st.markdown('<div class="pill-title">Convert Gold</div>', unsafe_allow_html=True)
 
 
-usd_oz_sjc = vnd_luong_to_usd_oz(price_sjc)
-usd_oz_pnj = vnd_luong_to_usd_oz(price_pnj)
+usd_sjc = vnd_to_usd(price_sjc)
+usd_pnj = vnd_to_usd(price_pnj)
 
 c1, a1, c2, a2, c3 = st.columns([5, 1, 5, 1, 5], vertical_alignment="top")
 
@@ -176,8 +199,8 @@ with c1:
     label_visibility="collapsed"
     )
 
-    st.markdown(f'<div class="small-under">{fmt_vnd(st.session_state.luong * price_sjc)} VND (SJC)</div>', unsafe_allow_html=True)
-    st.markdown(f'<div class="small-under">{fmt_vnd(st.session_state.luong * price_pnj)} VND (PNJ)</div>', unsafe_allow_html=True)
+    st.markdown(f'<div class="small-under">{fmt_vnd(st.session_state.luong * price_sjc)} nghìn VND (SJC)</div>', unsafe_allow_html=True)
+    st.markdown(f'<div class="small-under">{fmt_vnd(st.session_state.luong * price_pnj)} nghìn VND (PNJ)</div>', unsafe_allow_html=True)
 
 
 # ----- ARROW -----
@@ -201,8 +224,8 @@ with c2:
 
     vnd_chi_sjc = (st.session_state.chi / LUONG_TO_CHI) * price_sjc
     vnd_chi_pnj = (st.session_state.chi / LUONG_TO_CHI) * price_pnj
-    st.markdown(f'<div class="small-under">{fmt_vnd(vnd_chi_sjc)} VND (SJC)</div>', unsafe_allow_html=True)
-    st.markdown(f'<div class="small-under">{fmt_vnd(vnd_chi_pnj)} VND (PNJ)</div>', unsafe_allow_html=True)
+    st.markdown(f'<div class="small-under">{fmt_vnd(vnd_chi_sjc)} nghìn VND (SJC)</div>', unsafe_allow_html=True)
+    st.markdown(f'<div class="small-under">{fmt_vnd(vnd_chi_pnj)} nghìn VND (PNJ)</div>', unsafe_allow_html=True)
 
 
 # ----- ARROW -----
@@ -210,21 +233,21 @@ with a2:
     st.markdown('<div class="arrow-col"><div class="arrow">↔</div></div>', unsafe_allow_html=True)
 
 
-# ----- USD/OZ -----
+# ----- USD -----
 with c3:
-    st.markdown('<div class="unit-label"><span class="unit-dot"></span>USD/oz</div>', unsafe_allow_html=True)
+    st.markdown('<div class="unit-label"><span class="unit-dot"></span>USD</div>', unsafe_allow_html=True)
     st.number_input(
-    "usd_oz",
+    "usd",
     min_value=0.0,
-    value=float(st.session_state.usd_oz_input),
-    step=1.0,
+    value=float(st.session_state.usd_input),
+    step=10.0,
     format="%.0f",
-    key="usd_oz_input",
-    on_change=update_from_usd_oz,
+    key="usd_input",
+    on_change=update_from_usd,
     label_visibility="collapsed"
     )
 
-    st.markdown('<div class="small-under">Giá vàng thế giới</div>', unsafe_allow_html=True)
+    st.markdown('<div class="small-under">Quy đổi tiền tệ theo tỷ giá USD/VND</div>', unsafe_allow_html=True)
 
 
 # ----- FOOTER -----
@@ -252,8 +275,8 @@ st.markdown(
 
   <div class="info-card">
     <div class="info-icon"><img src="{IMG_TYGIA}"/></div>
-    <div class="info-text">SJC: ${fmt_usd(usd_oz_sjc)} | PNJ: ${fmt_usd(usd_oz_pnj)}</div>
-    <div class="info-sub">$1 = {fmt_vnd(USD_TO_VND)} VND</div>
+        <div class="info-text">SJC: ${fmt_usd(usd_sjc)} | PNJ: ${fmt_usd(usd_pnj)}</div>
+        <div class="info-sub">$1 = {fmt_vnd(USD_TO_VND)} VND</div>
   </div>
 </div>
 """,

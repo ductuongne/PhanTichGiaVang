@@ -56,7 +56,7 @@ def render_company_row(name: str, csv_path: str, title_class: str):
             metrics = calc_volatility_metrics(df_br)
 
             if metrics and not pd.isna(metrics['current']):
-                st.metric("Giá Buy hiện tại", f"{metrics['current']:,.0f} VND", 
+                st.metric("Giá Buy hiện tại", f"{metrics['current']:,.0f} nghìn VND", 
                           f"{metrics['delta']:,.0f} ({metrics['delta_pct']:.2f}%)")
                 
                 # Cảnh báo biến động
