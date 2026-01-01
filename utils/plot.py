@@ -102,7 +102,7 @@ def plot_gold_simple(df, company):
         ax,
         title=f"Lịch sử giá vàng {company}",
         xlabel="Thời gian",
-        ylabel="Giá (1,000 VND)"
+        ylabel="Giá (nghìn VND)"
     )
 
     st.pyplot(fig, use_container_width=True, transparent=True)
@@ -150,7 +150,7 @@ def plot_realtime_bar(df, company):
         ax,
         title=f"Giá vàng trực tiếp tại các chi nhánh – {company}",
         xlabel="Chi nhánh",
-        ylabel="Giá (1,000 VND)"
+        ylabel="Giá (nghìn VND)"
     )
 
     st.pyplot(fig, use_container_width=True, transparent=True)
