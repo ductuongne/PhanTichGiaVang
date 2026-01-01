@@ -54,14 +54,14 @@ trend = "Tăng" if predicted_tomorrow > today_price else "Giảm"
 col1, col2, col3 = st.columns(3)
 
 with col1:
-    st.metric("Giá hôm nay", f"{today_price:,.0f} VNĐ")
+    st.metric("Giá hôm nay", f"{today_price:,.0f} nghìn VNĐ")
 
 with col2:
     # Tính toán chênh lệch (delta) để hiển thị mũi tên lên/xuống
     delta_val = predicted_tomorrow - today_price
     st.metric(
         "Dự đoán ngày tới",
-        f"{predicted_tomorrow:,.0f} VNĐ",
+        f"{predicted_tomorrow:,.0f} nghìn VNĐ",
         delta=f"{delta_val:,.0f} ({trend})",
         delta_color="normal" if trend == "Tăng" else "inverse"
     )
@@ -93,7 +93,7 @@ ax1.plot(
 
 ax1.set_title(f"Giá vàng SJC – {selected_region}")
 ax1.set_xlabel("Thời gian")
-ax1.set_ylabel("Giá bán (VNĐ)")
+ax1.set_ylabel("Giá bán (nghìn VNĐ)")
 ax1.legend()
 
 st.pyplot(fig1)
@@ -117,7 +117,7 @@ ax2.plot(
 
 ax2.set_title("Lợi nhuận tích lũy (Chiến lược Linear Regression)")
 ax2.set_xlabel("Thời gian")
-ax2.set_ylabel("VNĐ")
+ax2.set_ylabel("nghìn VNĐ")
 ax2.legend()
 
 st.pyplot(fig2)

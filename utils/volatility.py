@@ -94,7 +94,7 @@ def render_company_card(
             if result:
                 st.metric(
                     "Giá hiện tại (Buy)",
-                    f"{result['current']:,.0f} VND",
+                    f"{result['current']:,.0f} nghìn VND",
                     f"{result['delta']:,.0f} ({result['delta_pct']:.2f}%)"
                 )
             else:
@@ -118,7 +118,7 @@ def render_company_card(
                 .mark_line()
                 .encode(
                     x=alt.X("date:T", title="Thời gian"),
-                    y=alt.Y("Price:Q", title="Giá (VND)"),
+                    y=alt.Y("Price:Q", title="Giá (nghìn VND)"),
                     color=alt.Color(
                         "Type:N",
                         scale=alt.Scale(

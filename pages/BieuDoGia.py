@@ -89,7 +89,7 @@ if vol:
         f"""
         <div class="volatility-box">
             <b>Biến động giá (Buy)</b><br>
-            Giá hiện tại: {vol['current']:,.0f} VND<br>
+            Giá hiện tại: {vol['current']:,.0f} nghìn VND<br>
             Thay đổi: {vol['delta']:,.0f} ({vol['delta_pct']:.2f}%)<br>
             Volatility: {vol['volatility']:.4f} ({vol['vol_level']})
         </div>
