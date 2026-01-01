@@ -171,7 +171,7 @@ def update_from_usd():
 # FORMATTERS
 # ==================================================
 fmt_vnd = lambda x: f"{int(round(x)):,}".replace(",", ".")
-fmt_usd = lambda x: f"{x:,.0f}"
+fmt_usd = lambda x: f"{int(round(x))}"
 
 
 # ==================================================
