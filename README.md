@@ -2,6 +2,7 @@
 ## Phân tích giá vàng – hướng dẫn chạy dự án
 
 Tài liệu này giúp chuẩn bị môi trường, cài thư viện, kích hoạt virtualenv và chạy ứng dụng.
+Vui lòng bật chế độ tối (dark mode) trên thiết bị để trải nghiệm tốt nhất.
 
 ### Yêu cầu
 - Python 3.9+ đã cài trong hệ thống
