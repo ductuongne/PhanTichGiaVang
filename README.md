@@ -54,7 +54,7 @@ PhanTichGiaVang/
 
 ## ⚠️ Miễn trừ trách nhiệm (Disclaimer)
 
-**Mục đích học tập**:  Dự án này được thực hiện hoàn toàn với mục đích học tập cho môn học lập trình Python. Đây là bài tập lớn của sinh viên, không phải sản phẩm thương mại hay công cụ tư vấn đầu tư. 
+**Mục đích học tập**:  Dự án này được thực hiện hoàn toàn với mục đích học tập cho môn học lập trình Python. Đây là bài tập lớn của sinh viên, không phải sản phẩm thương mại hay công cụ tư vấn đầu tư! 
 
 **Không phải lời khuyên tài chính**:  Mọi phân tích, dự đoán và thông tin về giá vàng trong dự án này chỉ mang tính chất minh họa và thực hành kỹ năng lập trình.  Không nên coi đây là lời khuyên đầu tư hay tài chính chuyên nghiệp.
 
